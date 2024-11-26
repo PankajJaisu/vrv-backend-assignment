@@ -8,28 +8,37 @@ from django.utils import timezone
 from datetime import timedelta
 from .models import Role
 from .rbac import IsAdmin, IsModerator, IsUser
-from .models import CustomUser
 from django.http import HttpResponse
+
 User = get_user_model()
 
+# Home view with Postman collection link
 def home(request):
     return HttpResponse('<h1><a href="https://documenter.getpostman.com/view/26432004/2sAXxY3oYP" target="_blank">Click to check Postman collection</a></h1>')
+
+# User Registration View
 class RegisterView(APIView):
     def post(self, request):
-        username = request.data.get('username')
-        password = request.data.get('password')
-        role_name = request.data.get('role')
+        try:
+            username = request.data.get('username')
+            password = request.data.get('password')
+            role_name = request.data.get('role')
             
-        role = Role.objects.get(name=role_name)
-        user = User.objects.create_user(username=username, password=password, role=role)
-        return Response({"message": "User created successfully"}, status=status.HTTP_201_CREATED)
+            role = Role.objects.get(name=role_name)
+            user = User.objects.create_user(username=username, password=password, role=role)
+            return Response({"message": "User created successfully"}, status=status.HTTP_201_CREATED)
+        except Role.DoesNotExist:
+            return Response({"error": "Invalid role specified"}, status=status.HTTP_400_BAD_REQUEST)
+        except Exception as e:
+            return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
+# User Login View
 class LoginView(APIView):
     def post(self, request):
-        username = request.data.get('username')
-        password = request.data.get('password')
-        
         try:
+            username = request.data.get('username')
+            password = request.data.get('password')
+            
             user = User.objects.get(username=username)
             
             # Check if the account is locked
@@ -60,7 +69,10 @@ class LoginView(APIView):
         
         except User.DoesNotExist:
             return Response({"error": "User not found"}, status=status.HTTP_400_BAD_REQUEST)
+        except Exception as e:
+            return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
+# User Logout View
 class LogoutView(APIView):
     permission_classes = [IsAuthenticated]
 
@@ -79,16 +91,25 @@ class AdminView(APIView):
     permission_classes = [IsAuthenticated, IsAdmin]
 
     def get(self, request):
-        return Response({"message": "Welcome Admin!"})
+        try:
+            return Response({"message": "Welcome Admin!"})
+        except Exception as e:
+            return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 class ModeratorView(APIView):
     permission_classes = [IsAuthenticated, IsModerator]
 
     def get(self, request):
-        return Response({"message": "Welcome Moderator!"})
+        try:
+            return Response({"message": "Welcome Moderator!"})
+        except Exception as e:
+            return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 class UserView(APIView):
     permission_classes = [IsAuthenticated, IsUser]
 
     def get(self, request):
-        return Response({"message": "Welcome User!"})
+        try:
+            return Response({"message": "Welcome User!"})
+        except Exception as e:
+            return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)

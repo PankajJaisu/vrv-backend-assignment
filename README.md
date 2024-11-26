@@ -62,8 +62,16 @@ You can skip the local setup and directly test the system using the Postman coll
 ### Live Demo URL:
 - [Deployed Application](https://vrv-backend-assignment.onrender.com)
 
+
 ---
 
+### Steps:
+1. **Import the Postman collection** using the provided link.
+2. **Use the live demo URL** as the base URL for your requests.
+3. **Authenticate** using the login endpoint to obtain JWT tokens.
+4. **Access secured endpoints** by including the JWT token in the `Authorization` header.
+
+---
 ### Endpoints Overview:
 You can explore and test all the endpoints directly through the Postman collection:
 - User Registration
