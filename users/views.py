@@ -9,8 +9,11 @@ from datetime import timedelta
 from .models import Role
 from .rbac import IsAdmin, IsModerator, IsUser
 from .models import CustomUser
+from django.http import HttpResponse
 User = get_user_model()
 
+def home(request):
+    return HttpResponse("<h1>Please Check Postman Documention in Github README.md for more information<h1>")
 class RegisterView(APIView):
     def post(self, request):
         username = request.data.get('username')
