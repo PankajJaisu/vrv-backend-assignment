@@ -56,11 +56,11 @@ python manage.py runserver
 You can skip the local setup and directly test the system using the Postman collection and the live demo link:
 
 ### Postman API Documentation:
-- [View Postman Collection]()  
+- [View Postman Collection](https://documenter.getpostman.com/view/26432004/2sAYBVhXRH)  
   **Note**: All endpoints are already included in this collection.
 
 ### Live Demo URL:
-- [Deployed Application]()
+- [Deployed Application](https://vrv-backend-assignment.onrender.com)
 
 ---
 

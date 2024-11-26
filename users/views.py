@@ -13,7 +13,7 @@ from django.http import HttpResponse
 User = get_user_model()
 
 def home(request):
-    return HttpResponse("<h1>Please Check Postman Documention in Github README.md for more information<h1>")
+    return HttpResponse('<h1><a href="https://documenter.getpostman.com/view/26432004/2sAXxY3oYP" target="_blank">Click to check Postman collection</a></h1>')
 class RegisterView(APIView):
     def post(self, request):
         username = request.data.get('username')
