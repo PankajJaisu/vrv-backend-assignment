@@ -14,7 +14,7 @@ User = get_user_model()
 
 # Home view with Postman collection link
 def home(request):
-    return HttpResponse('<h1><a href="https://documenter.getpostman.com/view/26432004/2sAXxY3oYP" target="_blank">Click to check Postman collection</a></h1>')
+    return HttpResponse('<h1><a href="https://documenter.getpostman.com/view/26432004/2sAYBVhXRH#08b29e5c-2396-47b0-b23c-274c1557d65d" target="_blank">Click to check Postman collection</a></h1>')
 
 # User Registration View
 class RegisterView(APIView):
